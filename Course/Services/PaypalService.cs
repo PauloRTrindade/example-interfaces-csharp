@@ -4,17 +4,12 @@
     {
         public double Interest(double amount, int months)
         {
-            double installment = amount / months;
-            for (int i = 0; i < months; i++)
-            {
-                installment += installment * 0.01 * i++;
-            }
-            return installment;
+            return amount * 0.01 * months;
         }
 
         public double PaymentFee(double amount)
         {
-            return amount += amount * 0.02;
+            return amount * 0.02;
         }
     }
 }

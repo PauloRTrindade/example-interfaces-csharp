@@ -28,16 +28,5 @@ namespace Course.Entities
         {
             installments.Remove(installment);
         }
-
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach (Installment installment in installments)
-            {
-                sb.AppendLine(installment.ToString());
-            }
-
-            return sb.ToString();
-        }
     }
 }

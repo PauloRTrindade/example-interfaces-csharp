@@ -1,4 +1,5 @@
 ﻿using Course.Entities;
+using Course.Services;
 using System.Globalization;
 using System.Net.Http.Headers;
 
@@ -6,19 +7,27 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Contract contract = new Contract(8020, DateTime.Now, 200.00, new List<Installment>());
 
-        int N = 2;
+        Console.WriteLine("Enter contract data");
+        Console.Write("Number: ");
+        int Number = int.Parse(Console.ReadLine());
+        Console.Write("Date (dd/MM/yyyy): ");
+        DateTime Date = DateTime.Parse(Console.ReadLine());
+        Console.Write("Contract value: ");
+        double ContractValue = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+        Console.Write("Enter number of installments: ");
+        int NumberInstallments = int.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
-        for (int i = 0; i < N; i++)
+        Contract contract = new Contract(Number, Date, ContractValue, new List<Installment>());
+
+        ContractService contractService = new ContractService(new PaypalService());
+        contractService.ProcessContract(contract, NumberInstallments);
+
+        Console.WriteLine();
+        Console.WriteLine("Installments");
+        foreach (Installment installment in contract.installments)
         {
-            ;
-            DateTime DueDate = DateTime.Now;
-            double Value = 200.00;
-
-            contract.AddInstallment(new Installment(DueDate, Value));
+            Console.WriteLine(installment);
         }
-
-        Console.WriteLine(contract);
     }
 }
